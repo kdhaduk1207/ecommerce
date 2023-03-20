@@ -1,4 +1,5 @@
-﻿using Infrastructure.Data;
+﻿using Core.Interfaces;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -7,18 +8,18 @@ namespace API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly StoreDbContext storeDbContext;
+        private readonly IProductRepo productRepo;
 
-        public ProductController(StoreDbContext storeDbContext)
+        public ProductController(IProductRepo productRepo)
         {
-            this.storeDbContext = storeDbContext;
+            this.productRepo = productRepo;
         }
 
 
         [HttpGet]
         public IActionResult GetProducts()
         {
-            return Ok(storeDbContext.Products);
+            return Ok(productRepo.GetProducts());
         }
     }
 }

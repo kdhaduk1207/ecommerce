@@ -1,4 +1,6 @@
+using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,8 @@ builder.Services.AddDbContext<StoreDbContext>(x =>
 {
     x.UseSqlServer(builder.Configuration["ConnectionStrings:shoppingcart"]);
 });
+
+builder.Services.AddScoped<IProductRepo, ProductRepository>();
 
 var app = builder.Build();
 
